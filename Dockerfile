@@ -3,9 +3,10 @@ ENV DEBIAN_FRONTEND=noninteractive TZ=Europe/Berlin
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
-    bash git \
+    bash git make expect \
     openjdk-8-jdk ant maven \
-    pcscd pcsc-tools vsmartcard-vpcd && \
+    opensc pcscd pcsc-tools vsmartcard-vpcd \
+    gnupg scdaemon && \
     rm -rf /var/lib/apt/lists/*
 
 RUN update-alternatives --set java /usr/lib/jvm/java-8-openjdk-*/jre/bin/java
