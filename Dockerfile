@@ -8,7 +8,8 @@ RUN apt-get update && \
     add-apt-repository ppa:phoerious/keepassxc && \
     apt-get update && \
     apt-get -y install --no-install-recommends \
-    bash git make expect openjdk-8-jdk ant maven opensc pcscd pcsc-tools vsmartcard-vpcd scdaemon keepassxc && \
+    curl bash git make expect openjdk-8-jdk ant maven python3 python3-dev python3-poetry python3-cachecontrol \
+    swig libpcsclite-dev build-essential opensc pcscd pcsc-tools vsmartcard-vpcd scdaemon keepassxc oathtool && \
     rm -rf /var/lib/apt/lists/* && \
     update-alternatives --set java /usr/lib/jvm/java-8-openjdk-*/jre/bin/java
 
@@ -21,9 +22,8 @@ RUN git clone --depth=1 https://github.com/bats-core/bats-core /app/tools/bats &
 RUN git clone --depth=1 https://github.com/martinpaljak/oracle_javacard_sdks /app/sdks
 
 # Build and install jcardsim
-RUN git clone https://github.com/arekinath/jcardsim.git /app/tools/jcardsim && \
+RUN git clone --depth=1 --single-branch --branch fixes https://github.com/StarGate01/jcardsim.git /app/tools/jcardsim && \
     cd /app/tools/jcardsim && \
-    git checkout 4d9513c858fb97333c17cab342c8cbffebe7b539 && \
     JC_CLASSIC_HOME=/app/sdks/jc305u3_kit/ mvn initialize && \
     JC_CLASSIC_HOME=/app/sdks/jc305u3_kit/ mvn clean install
 
@@ -32,6 +32,14 @@ RUN git clone --depth=1 --recursive https://github.com/arekinath/yktool.git /app
     cd /app/tools/yktool && \
     make yktool.jar && \
     cp yktool.jar /usr/bin/
+
+# Build and install ykman
+RUN git clone --depth=1 --single-branch --branch test/fix-ccid https://github.com/StarGate01/yubikey-manager.git /app/tools/yubikey-manager && \
+    cd /app/tools/yubikey-manager && \
+    poetry install
+
+# # Install pcsc-ndef
+# RUN git clone --depth=1 https://github.com/Giraut/pcsc-ndef.git /app/tools/pcsc-ndef
 
 WORKDIR /app
 ENTRYPOINT [ "/bin/bash", "-c" ]
