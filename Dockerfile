@@ -8,7 +8,8 @@ RUN apt-get update && \
     add-apt-repository ppa:phoerious/keepassxc && \
     apt-get update && \
     apt-get -y install --no-install-recommends \
-    curl bash git make expect openjdk-8-jdk ant maven python3 python3-dev python3-poetry python3-cachecontrol python3-pyscard \
+    curl bash git make expect openjdk-8-jdk ant maven \
+    python3 python3-dev python3-poetry python3-cachecontrol python3-pyscard python3-pyasn1 \
     swig libpcsclite-dev build-essential opensc pcscd pcsc-tools vsmartcard-vpcd scdaemon keepassxc oathtool && \
     rm -rf /var/lib/apt/lists/* && \
     update-alternatives --set java /usr/lib/jvm/java-8-openjdk-*/jre/bin/java
@@ -22,7 +23,7 @@ RUN git clone --depth=1 https://github.com/bats-core/bats-core /app/tools/bats &
 RUN git clone --depth=1 https://github.com/martinpaljak/oracle_javacard_sdks /app/sdks
 
 # Download and build jcardsim
-RUN git clone --depth=1 --single-branch --branch fixes https://github.com/StarGate01/jcardsim.git /app/tools/jcardsim && \
+RUN git clone --depth=1 https://github.com/StarGate01/jcardsim.git /app/tools/jcardsim && \
     cd /app/tools/jcardsim && \
     JC_CLASSIC_HOME=/app/sdks/jc305u3_kit/ mvn initialize && \
     JC_CLASSIC_HOME=/app/sdks/jc305u3_kit/ mvn clean install
