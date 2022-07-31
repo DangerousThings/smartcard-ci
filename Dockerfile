@@ -36,8 +36,8 @@ RUN git clone --single-branch --depth=1 --recursive https://github.com/arekinath
     make yktool.jar && \
     cp yktool.jar /usr/bin/
 
-# Download and install ykman
-RUN git clone --depth=1 --single-branch --branch test/fix-ccid https://github.com/StarGate01/yubikey-manager.git /app/tools/yubikey-manager && \
+# Download and install ykman (dev version)
+RUN git clone --single-branch --depth=1 https://github.com/Yubico/yubikey-manager.git /app/tools/yubikey-manager && \
     cd /app/tools/yubikey-manager && \
     poetry install
 
