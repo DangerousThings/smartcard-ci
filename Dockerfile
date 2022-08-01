@@ -9,12 +9,15 @@ RUN apt-get update && \
     apt-get update && \
     apt-get -y install --no-install-recommends \
     curl bash git expect jq openjdk-8-jdk ant maven \
-    python3 python3-dev python3-poetry python3-cachecontrol python3-pyscard python3-pyasn1 \
+    python3 python3-pip python3-dev python3-poetry python3-cachecontrol python3-pyscard python3-pyasn1 \
     swig opensc pcscd pcsc-tools vsmartcard-vpcd scdaemon keepassxc oathtool \
     build-essential make cmake pkg-config \
     libpcsclite-dev libcbor-dev libudev-dev libz-dev libssl-dev libcurl4-openssl-dev libjansson-dev && \
     rm -rf /var/lib/apt/lists/* && \
     update-alternatives --set java /usr/lib/jvm/java-8-openjdk-*/jre/bin/java
+
+# Install Python packages not packaged by system
+RUN pip3 install ndeflib
 
 # Download and install bats
 RUN git clone --single-branch --depth=1 https://github.com/bats-core/bats-core /app/tools/bats && \
