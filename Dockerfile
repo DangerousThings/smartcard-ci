@@ -63,7 +63,7 @@ RUN git clone --single-branch --depth=1 https://github.com/martelletto/fido2-web
     cp build/fido2-webauthn-client /usr/bin/
 
 # Download fido-attestation-loader
-RUN git clone https://github.com/StarGate01/fido-attestation-loader /app/tools/fido-attestation-loader
+RUN git clone --single-branch --depth=1 https://github.com/StarGate01/fido-attestation-loader /app/tools/fido-attestation-loader
 
 WORKDIR /app
 ENTRYPOINT [ "/bin/bash", "-c" ]
