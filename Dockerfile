@@ -28,7 +28,7 @@ RUN git clone --single-branch --depth=1 https://github.com/bats-core/bats-core /
 RUN git clone --single-branch --depth=1 https://github.com/martinpaljak/oracle_javacard_sdks /app/sdks
 
 # Download and build jcardsim
-RUN git clone --single-branch --depth=1 https://github.com/StarGate01/jcardsim.git /app/tools/jcardsim && \
+RUN git clone --single-branch --depth=1 https://github.com/DangerousThings/jcardsim.git /app/tools/jcardsim && \
     cd /app/tools/jcardsim && \
     JC_CLASSIC_HOME=/app/sdks/jc305u3_kit/ mvn initialize && \
     JC_CLASSIC_HOME=/app/sdks/jc305u3_kit/ mvn clean install
@@ -63,9 +63,9 @@ RUN git clone --single-branch --depth=1 https://github.com/martelletto/fido2-web
     cp build/fido2-webauthn-client /usr/bin/
 
 # Download fido-attestation-loader
-RUN git clone https://github.com/StarGate01/fido-attestation-loader /app/tools/fido-attestation-loader && \
+RUN git clone https://github.com/DangerousThings/fido-attestation-loader /app/tools/fido-attestation-loader && \
     cd /app/tools/fido-attestation-loader && \
-    git checkout 7651de63c714fa9ef54af2555046372967c65fe6
+    git checkout 03a61592e137111c19fc1bedfcaf720c8640381a
 
 WORKDIR /app
 ENTRYPOINT [ "/bin/bash", "-c" ]
