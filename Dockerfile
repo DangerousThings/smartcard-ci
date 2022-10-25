@@ -9,7 +9,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get -y install --no-install-recommends \
     curl bash git expect jq openjdk-8-jdk ant maven \
-    python3 python3-pip python3-dev python3-poetry python3-cachecontrol \
+    python3 python3-pip python3-setuptools python3-dev python3-poetry python3-cachecontrol \
     swig opensc pcscd pcsc-tools vsmartcard-vpcd scdaemon keepassxc oathtool \
     build-essential make cmake pkg-config \
     libpcsclite-dev libcbor-dev libudev-dev libz-dev libssl-dev libcurl4-openssl-dev libjansson-dev && \
@@ -40,7 +40,7 @@ RUN git clone --single-branch --depth=1 --recursive https://github.com/arekinath
     cp yktool.jar /usr/bin/
 
 # Download and install ykman (dev version)
-RUN git clone --single-branch --depth=1 https://github.com/Yubico/yubikey-manager.git /app/tools/yubikey-manager && \
+RUN git clone --depth=1 --single-branch --branch test/fix-ccid https://github.com/StarGate01/yubikey-manager.git /app/tools/yubikey-manager && \
     cd /app/tools/yubikey-manager && \
     poetry install
 
@@ -63,9 +63,7 @@ RUN git clone --single-branch --depth=1 https://github.com/martelletto/fido2-web
     cp build/fido2-webauthn-client /usr/bin/
 
 # Download fido-attestation-loader
-RUN git clone https://github.com/DangerousThings/fido-attestation-loader /app/tools/fido-attestation-loader && \
-    cd /app/tools/fido-attestation-loader && \
-    git checkout 03a61592e137111c19fc1bedfcaf720c8640381a
+RUN git clone https://github.com/DangerousThings/fido-attestation-loader /app/tools/fido-attestation-loader
 
 WORKDIR /app
 ENTRYPOINT [ "/bin/bash", "-c" ]
