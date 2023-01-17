@@ -28,8 +28,8 @@ RUN git clone --single-branch --depth=1 https://github.com/bats-core/bats-core /
 RUN git clone --single-branch --depth=1 https://github.com/martinpaljak/oracle_javacard_sdks /app/sdks
 
 # Download and build jcardsim
-RUN git clone --single-branch --depth=1 https://github.com/DangerousThings/jcardsim.git /app/tools/jcardsim && \
-    cd /app/tools/jcardsim && \
+ADD ./jcardsim /app/tools/jcardsim
+RUN cd /app/tools/jcardsim && \
     JC_CLASSIC_HOME=/app/sdks/jc305u3_kit/ mvn initialize && \
     JC_CLASSIC_HOME=/app/sdks/jc305u3_kit/ mvn clean install
 
