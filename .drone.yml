@@ -2,7 +2,15 @@
 kind: pipeline
 name: default
 
+clone:
+  disable: true
+
 steps:
+- name: clone
+  image: alpine/git
+  commands:
+  - git clone https://github.com/DangerousThings/smartcard-ci .
+  - git submodule update --init --recursive
 - name: build  
   image: plugins/docker
   settings:
