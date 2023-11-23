@@ -17,7 +17,7 @@ RUN apt-get update && \
     update-alternatives --set java /usr/lib/jvm/java-8-openjdk-*/jre/bin/java
 
 # Install Python packages
-RUN pip3 install ndeflib pyasn1 asn1 pyscard JPype1 parameterized uhid fido2
+RUN pip3 install ndeflib pyasn1 asn1 pyscard JPype1 parameterized uhid fido2 cbor2
 
 # Download and install bats
 RUN git clone --single-branch --depth=1 https://github.com/bats-core/bats-core /app/tools/bats && \
@@ -65,7 +65,7 @@ RUN git clone --single-branch --depth=1 https://github.com/martelletto/fido2-web
 # Download fido-attestation-loader
 RUN git clone https://github.com/DangerousThings/fido-attestation-loader /app/tools/fido-attestation-loader && \
     cd /app/tools/fido-attestation-loader && \
-    git checkout d171538402b42abb6293b4685cf13c4613d34ae1
+    git checkout e056872c47d69b9494cc9bf34b9f79635b33850b
 
 WORKDIR /app
 ENTRYPOINT [ "/bin/bash", "-c" ]
