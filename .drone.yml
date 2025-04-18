@@ -19,4 +19,6 @@ steps:
     password:
       from_secret: docker_password
     repo: vivokey/smartcard-ci
+    tags:
+    - latest
     
