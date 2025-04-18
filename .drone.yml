@@ -14,7 +14,8 @@ steps:
 - name: build  
   image: plugins/docker
   settings:
-    username: vivokeychristoph
+    username:
+      from_secret: docker_username
     password:
       from_secret: docker_password
     repo: vivokey/smartcard-ci
